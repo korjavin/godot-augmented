@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+; Deliberately minimal: the whole AR scene (3D camera rig, lights, the golden
+; coin, the camera-feed bridge, the sensor bridge, and the START overlay) is
+; built in code by main.gd. Hand-authoring it here would mean spelling out mesh
+; and material sub-resources by hand; building it in _ready() is far easier to
+; get right without opening the Godot editor.
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_main"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")

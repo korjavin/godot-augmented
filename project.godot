@@ -1,0 +1,64 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Golden Coin AR — a "magic-window" augmented-reality web app.
+; The rear camera (a browser <video> element) shows through a TRANSPARENT Godot
+; canvas, and Godot renders a 3D golden coin on top. The phone's orientation
+; sensors drive the 3D camera so the coin stays anchored in space as you move.
+
+config_version=5
+
+[application]
+
+config/name="Golden Coin AR"
+config/description="Augmented-reality web app: live rear camera + a 3D golden coin, anchored by device orientation."
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.5", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+; Portrait phone framing by default (desktop dev window). On the web the stretch
+; "expand" override (below) fills any screen shape, so this is just the dev size.
+window/size/viewport_width=1080
+window/size/viewport_height=1920
+window/size/mode=0
+window/stretch/mode="canvas_items"
+; Desktop keeps "keep" (preserve framing). The web build (phones) overrides to
+; "expand" via Godot's `.web` per-feature suffix, so the view fills any screen
+; shape with square pixels — no black bars — exactly like godot-test1.
+window/stretch/aspect="keep"
+window/stretch/aspect.web="expand"
+; Allow a transparent root window/canvas. This is what lets the browser <video>
+; (rear camera) show THROUGH the Godot canvas so only the coin is drawn on top.
+; The runtime also sets `get_viewport().transparent_bg = true` in main.gd.
+window/per_pixel_transparency/allowed=true
+
+[rendering]
+
+; --- Renderer selection ---------------------------------------------------
+; Desktop/editor keep "Forward Plus" (declared in config/features). The ".web"
+; override switches the HTML5/WebGL2 export to the lightweight "gl_compatibility"
+; path — far cheaper in a browser, so the AR view stays smooth on a phone.
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.web="gl_compatibility"
+
+; Transparent clear so nothing opaque is drawn behind the coin — the camera
+; <video> behind the canvas is what fills the background. Alpha 0 is the key bit.
+viewport/transparent_background=true
+environment/defaults/default_clear_color=Color(0, 0, 0, 0)
+; No default environment/sky: a sky would draw an opaque background and hide the
+; camera. The coin is lit by explicit lights in main.gd instead.
+environment/defaults/default_environment=""
+
+; --- Anti-aliasing & cost (web-only tweaks, same posture as godot-test1) ---
+anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/msaa_3d.web=0
+textures/canvas_textures/default_texture_filter=2
+textures/vram_compression/import_etc2_astc=true
+
+[input_devices]
+
+; Touch emulates mouse so the on-screen START button works by tap on a phone.
+pointing/emulate_mouse_from_touch=true

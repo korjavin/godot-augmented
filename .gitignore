@@ -1,0 +1,53 @@
+# Godot 4+ specific ignores
+.godot/
+.import/
+
+# Godot-specific generated files
+*.translation
+*.import
+
+# Build outputs
+build/
+builds/
+dist/
+exports/
+
+# Mono/C# (if used later)
+.mono/
+data_*/
+mono_crash.*.json
+
+# System / tool files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# IDE
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs / temp
+*.log
+logs/
+*.tmp
+
+# Web export (generated)
+.web/
+*.wasm.map
+
+# Backups
+*.backup
+*.bak
+
+# Keep export_presets.cfg in version control so CI can use it
+!export_presets.cfg
