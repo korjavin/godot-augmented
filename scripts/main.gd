@@ -20,7 +20,10 @@ extends Node3D
 ## appears fixed (true magic-window). The SIGN of each may need flipping per
 ## device/browser axis convention — same on-device tuning posture as godot-test1.
 @export var yaw_gain: float = 1.0
-@export var pitch_gain: float = 1.0
+## pitch_gain is NEGATIVE: on-device testing showed tilting the phone up/down
+## moved the coin the wrong way, so we invert the pitch axis here. (Left/right
+## yaw tested correct at +1.0.)
+@export var pitch_gain: float = -1.0
 @export var roll_gain: float = 0.5
 ## Smoothing: higher = snappier, lower = smoother/laggier. Tames sensor jitter.
 @export var orientation_smooth: float = 12.0
